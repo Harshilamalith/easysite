@@ -647,9 +647,9 @@ function contentCardHtml(type, item) {
     const badges = { live: 'Live Class', recording: 'Recording', pdf: 'Notes' };
     const labels = { live: 'Join Live Class', recording: 'Watch Recording', pdf: 'Open PDF' };
     // YouTube recordings play in our protected in-page player (no clickable video link)
-    const vid = (type === 'recording' && window.CPPlayer) ? CPPlayer.idFromUrl(item.url) : '';
-    const openAttrs = vid
-        ? `href="#" data-video="${vid}" data-video-title="${String(item.title || '').replace(/"/g, '&quot;')}"`
+    const vinfo = (type === 'recording' && window.CPPlayer) ? CPPlayer.parse(item.url) : null;
+    const openAttrs = vinfo
+        ? `href="#" data-video="${vinfo.id}" data-vtype="${vinfo.type}" data-video-title="${String(item.title || '').replace(/"/g, '&quot;')}"`
         : `href="${item.url}" target="_blank" rel="noopener"`;
     return `
         <a class="content-card content-card--${type}" ${openAttrs}>

@@ -1163,3 +1163,9 @@ body.student-mode .academics-section { margin-top: 46px; }
 .vp-admode .vp-controls { opacity: 0; pointer-events: none; }
 .vp-ad { position: absolute; top: 10px; right: 10px; z-index: 6; background: rgba(0,0,0,.65); color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill); padding: 7px 14px; font: 600 .8rem var(--font-body); cursor: pointer; }
 .vp-admode .vp-ad { display: none; }
+
+/* ---- Google Drive recordings ---- */
+.vp-popcover, .vp-fsbtn { display: none; }
+.vp-drive .vp-popcover { display: block; position: absolute; top: 0; right: 0; width: 84px; height: 60px; background: #000; z-index: 4; }
+.vp-drive .vp-fsbtn { display: block; position: absolute; top: 10px; left: 10px; z-index: 6; background: rgba(0,0,0,.65); color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill); padding: 7px 14px; font: 600 .8rem var(--font-body); cursor: pointer; }
+.vp-drive .vp-shield, .vp-drive .vp-controls, .vp-drive .vp-ad, .vp-drive .vp-adbar { display: none !important; }

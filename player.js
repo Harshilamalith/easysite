@@ -11,6 +11,18 @@ window.CPPlayer = (function () {
         return m ? m[1] : '';
     }
 
+    function driveIdFromUrl(url) {
+        const m = String(url || '').match(/drive\.google\.com\/(?:file\/d\/|open\?(?:.*&)?id=|uc\?(?:.*&)?id=)([A-Za-z0-9_-]{10,})/);
+        return m ? m[1] : '';
+    }
+
+    // Returns { type: 'yt' | 'drive', id } or null for any other kind of link.
+    function parse(url) {
+        const y = idFromUrl(url); if (y) return { type: 'yt', id: y };
+        const d = driveIdFromUrl(url); if (d) return { type: 'drive', id: d };
+        return null;
+    }
+
     function loadApi() {
         if (ytReady) return ytReady;
         ytReady = new Promise((resolve, reject) => {
@@ -45,6 +57,8 @@ window.CPPlayer = (function () {
               <div class="vp-mark"></div>
               <div class="vp-end"><button type="button" class="vp-replay">↻ Replay</button></div>
               <div class="vp-msg"></div>
+              <div class="vp-popcover"></div>
+              <button type="button" class="vp-fsbtn">⛶ Fullscreen</button>
               <button type="button" class="vp-ad" title="Ad playing? Tap to skip it">⏭ Ad? Tap to skip</button>
               <div class="vp-adbar"><span>Tap “Skip Ad” (bottom-right of the video)</span><button type="button" class="vp-addone">Done</button></div>
               <div class="vp-controls">
@@ -74,8 +88,9 @@ window.CPPlayer = (function () {
     }
 
     function onKey(e) {
-        if (!root || !yt) return;
+        if (!root) return;
         if (e.key === 'Escape' && !document.fullscreenElement) close();
+        else if (!yt) return;
         else if (e.key === ' ') { e.preventDefault(); toggle(); }
         else if (e.key === 'ArrowRight') yt.seekTo(yt.getCurrentTime() + 10, true);
         else if (e.key === 'ArrowLeft') yt.seekTo(yt.getCurrentTime() - 10, true);
@@ -93,7 +108,21 @@ window.CPPlayer = (function () {
         mark.style.top = 12 + Math.random() * Math.max(10, stage.clientHeight - 90) + 'px';
     }
 
-    async function open(videoId, title) {
+    // Google Drive videos use Drive's own player inside our frame. We hide its pop-out button,
+    // keep fullscreen inside our frame (so the watermark stays), and show the watermark on top.
+    function startDrive(id, stage) {
+        stage.classList.add('vp-drive');
+        const f = document.createElement('iframe');
+        f.src = 'https://drive.google.com/file/d/' + encodeURIComponent(id) + '/preview';
+        f.setAttribute('allow', 'autoplay'); // no "fullscreen" permission on purpose
+        f.setAttribute('title', 'Recording');
+        stage.querySelector('#vp-yt').replaceWith(f);
+        const fs = stage.querySelector('.vp-fsbtn');
+        if (!(stage.requestFullscreen || stage.webkitRequestFullscreen)) fs.style.display = 'none';
+        fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen();
+    }
+
+    async function open(videoId, title, type) {
         if (root) close();
         build(title);
         const q = (s) => root.querySelector(s);
@@ -103,6 +132,7 @@ window.CPPlayer = (function () {
         document.addEventListener('keydown', onKey);
         q('.vp-mark').textContent = watermarkText();
         moveMark(); markTimer = setInterval(moveMark, 6000);
+        if (type === 'drive') return startDrive(videoId, stage);
         q('.vp-shield').onclick = toggle;
         q('.vp-shield').ondblclick = () => q('.vp-full').click();
         q('.vp-play').onclick = toggle;
@@ -149,8 +179,8 @@ window.CPPlayer = (function () {
         const a = e.target.closest && e.target.closest('[data-video]');
         if (!a) return;
         e.preventDefault();
-        open(a.getAttribute('data-video'), a.getAttribute('data-video-title'));
+        open(a.getAttribute('data-video'), a.getAttribute('data-video-title'), a.getAttribute('data-vtype'));
     });
 
-    return { idFromUrl: idFromUrl, open: open };
+    return { idFromUrl: idFromUrl, parse: parse, open: open };
 })();
