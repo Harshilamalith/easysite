@@ -1160,4 +1160,5 @@ body.student-mode .academics-section { margin-top: 46px; }
 .vp-admode .vp-adbar { display: flex; }
 .vp-admode .vp-shield { pointer-events: none; }
 .vp-admode .vp-controls { opacity: 0; pointer-events: none; }
-.vp-ad { font-size: .78rem; background: rgba(255,255,255,.14); border-radius: 6px; }
+.vp-ad { position: absolute; top: 10px; right: 10px; z-index: 6; background: rgba(0,0,0,.65); color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill); padding: 7px 14px; font: 600 .8rem var(--font-body); cursor: pointer; }
+.vp-admode .vp-ad { display: none; }

@@ -45,6 +45,7 @@ window.CPPlayer = (function () {
               <div class="vp-mark"></div>
               <div class="vp-end"><button type="button" class="vp-replay">↻ Replay</button></div>
               <div class="vp-msg"></div>
+              <button type="button" class="vp-ad" title="Ad playing? Tap to skip it">⏭ Ad? Tap to skip</button>
               <div class="vp-adbar"><span>Tap “Skip Ad” in the video</span><button type="button" class="vp-addone">Done</button></div>
               <div class="vp-controls">
                 <button type="button" class="vp-btn vp-play" aria-label="Play or pause">▶</button>
@@ -52,7 +53,6 @@ window.CPPlayer = (function () {
                 <button type="button" class="vp-btn vp-fwd" aria-label="Forward 10 seconds">10⏩</button>
                 <span class="vp-time">0:00 / 0:00</span>
                 <input type="range" class="vp-seek" min="0" max="1000" value="0" aria-label="Seek">
-                <button type="button" class="vp-btn vp-ad" title="Ad playing? Tap to skip it">⏭ Ad?</button>
                 <select class="vp-speed" aria-label="Speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
                 <button type="button" class="vp-btn vp-full" aria-label="Fullscreen">⛶</button>
               </div>
