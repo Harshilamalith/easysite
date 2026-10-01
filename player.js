@@ -4,7 +4,7 @@
  * - the video link is never shown as a clickable URL on the page
  * Honest limit: nothing in a browser can stop screen recording; this deters casual link sharing. */
 window.CPPlayer = (function () {
-    let yt = null, ytReady = null, timer = null, markTimer = null, dragging = false, root = null;
+    let yt = null, ytReady = null, timer = null, markTimer = null, adTimer = null, dragging = false, root = null;
 
     function idFromUrl(url) {
         const m = String(url || '').match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|live\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
@@ -45,12 +45,14 @@ window.CPPlayer = (function () {
               <div class="vp-mark"></div>
               <div class="vp-end"><button type="button" class="vp-replay">↻ Replay</button></div>
               <div class="vp-msg"></div>
+              <div class="vp-adbar"><span>Tap “Skip Ad” in the video</span><button type="button" class="vp-addone">Done</button></div>
               <div class="vp-controls">
                 <button type="button" class="vp-btn vp-play" aria-label="Play or pause">▶</button>
                 <button type="button" class="vp-btn vp-back" aria-label="Back 10 seconds">⏪10</button>
                 <button type="button" class="vp-btn vp-fwd" aria-label="Forward 10 seconds">10⏩</button>
                 <span class="vp-time">0:00 / 0:00</span>
                 <input type="range" class="vp-seek" min="0" max="1000" value="0" aria-label="Seek">
+                <button type="button" class="vp-btn vp-ad" title="Ad playing? Tap to skip it">⏭ Ad?</button>
                 <select class="vp-speed" aria-label="Speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
                 <button type="button" class="vp-btn vp-full" aria-label="Fullscreen">⛶</button>
               </div>
@@ -62,7 +64,7 @@ window.CPPlayer = (function () {
     }
 
     function close() {
-        clearInterval(timer); clearInterval(markTimer);
+        clearInterval(timer); clearInterval(markTimer); clearTimeout(adTimer);
         if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
         if (yt && yt.destroy) { try { yt.destroy(); } catch (e) {} }
         yt = null;
@@ -104,6 +106,10 @@ window.CPPlayer = (function () {
         q('.vp-shield').onclick = toggle;
         q('.vp-shield').ondblclick = () => q('.vp-full').click();
         q('.vp-play').onclick = toggle;
+        // "Ad?" mode: lets taps reach YouTube's own Skip Ad button for a while, then re-locks.
+        const adMode = (on) => { stage.classList.toggle('vp-admode', on); clearTimeout(adTimer); if (on) adTimer = setTimeout(() => adMode(false), 45000); };
+        q('.vp-ad').onclick = () => adMode(true);
+        q('.vp-addone').onclick = () => adMode(false);
         q('.vp-back').onclick = () => yt && yt.seekTo(yt.getCurrentTime() - 10, true);
         q('.vp-fwd').onclick = () => yt && yt.seekTo(yt.getCurrentTime() + 10, true);
         q('.vp-speed').onchange = (e) => yt && yt.setPlaybackRate(Number(e.target.value));

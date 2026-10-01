@@ -1153,3 +1153,11 @@ body.student-mode .academics-section { margin-top: 46px; }
 .vp-speed { background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 6px; padding: 4px; font-size: .78rem; }
 .vp-speed option { color: #000; }
 @media (max-width: 560px) { .vp-back, .vp-fwd, .vp-speed { display: none; } }
+
+/* "Ad?" mode: temporarily let taps reach YouTube's Skip Ad button */
+.vp-adbar { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 6; display: none; align-items: center; gap: 10px; background: rgba(0,0,0,.78); color: #fff; padding: 8px 8px 8px 14px; border-radius: var(--r-pill); font-size: .82rem; }
+.vp-addone { background: var(--grad-primary); color: #04121a; border: 0; border-radius: var(--r-pill); padding: 5px 12px; font-weight: 700; cursor: pointer; }
+.vp-admode .vp-adbar { display: flex; }
+.vp-admode .vp-shield { pointer-events: none; }
+.vp-admode .vp-controls { opacity: 0; pointer-events: none; }
+.vp-ad { font-size: .78rem; background: rgba(255,255,255,.14); border-radius: 6px; }
