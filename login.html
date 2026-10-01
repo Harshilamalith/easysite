@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login | ClearPHYSICS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<main class="card">
+  <div class="brand">⚛️ <span>Clear<span>PHYSICS</span></span></div>
+
+  <!-- Step 1: log in / create account -->
+  <section id="step-main">
+    <div class="tabs"><button id="tab-login" class="on" type="button">Log in</button><button id="tab-register" type="button">Create account</button></div>
+    <form id="form-main" novalidate>
+      <label for="email">Email</label><input id="email" type="email" autocomplete="email" required>
+      <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" minlength="8" required>
+      <div id="confirm-wrap" class="hidden"><label for="password2">Confirm password</label><input id="password2" type="password" autocomplete="new-password"></div>
+      <button class="btn" id="main-btn" type="submit">Log in</button>
+      <div class="row"><button class="link" id="forgot-link" type="button">Forgot password?</button></div>
+    </form>
+  </section>
+
+  <!-- Step 2: enter the emailed code (verify email OR reset password) -->
+  <section id="step-code" class="hidden">
+    <h2 id="code-title">Check your email</h2>
+    <p class="sub" id="code-sub"></p>
+    <form id="form-code" novalidate>
+      <label for="code">6-digit code</label><input id="code" class="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      <div id="newpw-wrap" class="hidden"><label for="newpw">New password</label><input id="newpw" type="password" autocomplete="new-password" minlength="8"></div>
+      <button class="btn" id="code-btn" type="submit">Verify</button>
+      <div class="row"><button class="link" id="resend-link" type="button">Resend code</button><button class="link" id="back-link" type="button">Back</button></div>
+    </form>
+  </section>
+
+  <!-- Step 3: signed in -->
+  <section id="step-done" class="hidden">
+    <h2>You're signed in ✓</h2>
+    <p class="sub" id="done-sub"></p>
+    <button class="btn" id="continue-btn" type="button">Continue</button>
+    <div class="row"><button class="link" id="signout-link" type="button">Sign out</button></div>
+  </section>
+
+  <div class="msg" id="msg" role="status"></div>
+</main>
+<script src="auth.js"></script>
+<script src="login.js"></script>
+</body>
+</html>
