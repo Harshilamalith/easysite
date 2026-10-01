@@ -46,7 +46,7 @@ window.CPPlayer = (function () {
               <div class="vp-end"><button type="button" class="vp-replay">↻ Replay</button></div>
               <div class="vp-msg"></div>
               <button type="button" class="vp-ad" title="Ad playing? Tap to skip it">⏭ Ad? Tap to skip</button>
-              <div class="vp-adbar"><span>Tap “Skip Ad” in the video</span><button type="button" class="vp-addone">Done</button></div>
+              <div class="vp-adbar"><span>Tap “Skip Ad” (bottom-right of the video)</span><button type="button" class="vp-addone">Done</button></div>
               <div class="vp-controls">
                 <button type="button" class="vp-btn vp-play" aria-label="Play or pause">▶</button>
                 <button type="button" class="vp-btn vp-back" aria-label="Back 10 seconds">⏪10</button>
@@ -107,7 +107,7 @@ window.CPPlayer = (function () {
         q('.vp-shield').ondblclick = () => q('.vp-full').click();
         q('.vp-play').onclick = toggle;
         // "Ad?" mode: lets taps reach YouTube's own Skip Ad button for a while, then re-locks.
-        const adMode = (on) => { stage.classList.toggle('vp-admode', on); clearTimeout(adTimer); if (on) adTimer = setTimeout(() => adMode(false), 45000); };
+        const adMode = (on) => { stage.classList.toggle('vp-admode', on); clearTimeout(adTimer); if (on) adTimer = setTimeout(() => adMode(false), 30000); };
         q('.vp-ad').onclick = () => adMode(true);
         q('.vp-addone').onclick = () => adMode(false);
         q('.vp-back').onclick = () => yt && yt.seekTo(yt.getCurrentTime() - 10, true);

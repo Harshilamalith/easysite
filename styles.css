@@ -1158,7 +1158,8 @@ body.student-mode .academics-section { margin-top: 46px; }
 .vp-adbar { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 6; display: none; align-items: center; gap: 10px; background: rgba(0,0,0,.78); color: #fff; padding: 8px 8px 8px 14px; border-radius: var(--r-pill); font-size: .82rem; }
 .vp-addone { background: var(--grad-primary); color: #04121a; border: 0; border-radius: var(--r-pill); padding: 5px 12px; font-weight: 700; cursor: pointer; }
 .vp-admode .vp-adbar { display: flex; }
-.vp-admode .vp-shield { pointer-events: none; }
+/* Only the bottom-right corner (where YouTube's Skip Ad button sits) lets taps through; the rest stays shielded so Share / Watch on YouTube can't be reached. */
+.vp-admode .vp-shield { clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 58% 55%, 100% 55%, 100% 100%, 58% 100%, 58% 55%); cursor: default; }
 .vp-admode .vp-controls { opacity: 0; pointer-events: none; }
 .vp-ad { position: absolute; top: 10px; right: 10px; z-index: 6; background: rgba(0,0,0,.65); color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill); padding: 7px 14px; font: 600 .8rem var(--font-body); cursor: pointer; }
 .vp-admode .vp-ad { display: none; }
