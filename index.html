@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ClearPHYSICS — professional A/L Physics tuition by PHM Pathirana. Notes, past papers, live classes and recordings for the 2027 & 2028 A/L batches.">
+    <title>ClearPHYSICS | Master the Universe — A/L Physics Tuition</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='4' fill='url(%23g)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='6' fill='none' stroke='url(%23g)' stroke-width='2' transform='rotate(30 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='6' fill='none' stroke='url(%23g)' stroke-width='2' transform='rotate(90 16 16)'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+    </div>
+
+    <!-- Ambient Background -->
+    <div class="graphic-shape shape-1" aria-hidden="true"></div>
+    <div class="graphic-shape shape-2" aria-hidden="true"></div>
+    <div class="graphic-shape shape-3" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Navigation -->
+    <nav id="site-nav">
+        <div class="logo">
+            <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+                <defs>
+                    <linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#34d399"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="16" cy="16" r="4" fill="url(#logo-g)"/>
+                <ellipse cx="16" cy="16" rx="13" ry="6" fill="none" stroke="url(#logo-g)" stroke-width="2" transform="rotate(30 16 16)"/>
+                <ellipse cx="16" cy="16" rx="13" ry="6" fill="none" stroke="url(#logo-g)" stroke-width="2" transform="rotate(90 16 16)"/>
+            </svg>
+            <span>Clear<span>PHYSICS</span> <em class="logo-teacher">PHM Pathirana</em></span>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#" class="marketing-link" id="nav-home-link" data-nav-src="home">Home</a></li>
+            <li><a href="#" class="marketing-link" id="nav-courses-link" data-nav-src="courses">Courses</a></li>
+            <li><a href="#" id="nav-contact-link" data-nav-src="contact">Contact Us</a></li>
+            <li><a href="#" class="marketing-link" id="nav-about-link" data-nav-src="about">About Us</a></li>
+            <li><a href="#" id="nav-edit-details-link" style="display:none;">Edit My Details</a></li>
+            <li><a href="#academics-section" id="nav-academics-link" style="display:none;">My Academics</a></li>
+            <li><a href="#" id="nav-signout-link" style="display:none;">Sign Out</a></li>
+            <li>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle dark or light mode">🌙</button>
+            </li>
+            <li>
+                <button type="button" class="btn nav-cta" id="nav-cta-btn">Log In Now</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-copy">
+            <div class="hero-eyebrow">A/L Physics Tuition · by PHM Pathirana</div>
+            <h1>Master the Laws of the <span class="grad">Universe</span></h1>
+            <p>Unlock your potential with modern physics concepts. From simple mechanics to advanced theory, we make complex ideas clear, engaging, and easy to understand. Start your A/L journey with us.</p>
+            <div class="hero-ctas">
+                <button type="button" class="btn" id="book-session-btn">Log In Now</button>
+                <button type="button" class="btn btn-ghost" data-open-about>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                    Watch Our Story
+                </button>
+            </div>
+
+            <div class="hero-trust marketing-content" data-reveal>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>2027 &amp; 2028 Batches</span>
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span>Notes &amp; Past Papers</span>
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <span>Class Recordings</span>
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <span>WhatsApp Support</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero visual: dashboard mock preview -->
+        <div class="hero-visual" aria-hidden="true">
+            <div class="hv-float hv-f1">
+                <span class="hv-float-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>
+                </span>
+                <div><b>Batch 2028</b><span>Enrolled</span></div>
+            </div>
+            <div class="hv-card">
+                <div class="hv-head">
+                    <div class="hv-head-l">
+                        <svg class="hv-head-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                        Study Dashboard
+                    </div>
+                    <span class="hv-live">This week</span>
+                </div>
+                <div class="hv-progress">
+                    <div class="hv-progress-top"><b>Waves &amp; Oscillations</b><span>72%</span></div>
+                    <div class="hv-track"><div class="hv-bar"></div></div>
+                </div>
+                <div class="hv-lessons">
+                    <div class="hv-lesson is-live">
+                        <span class="hv-ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><polygon points="22 7 16 12 22 17 22 7"/></svg>
+                        </span>
+                        <div><b>Live Class — Superposition</b><span class="hv-sub">Sat · 8:00 PM</span></div>
+                    </div>
+                    <div class="hv-lesson is-video">
+                        <span class="hv-ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        </span>
+                        <div><b>Recording — Standing Waves</b><span class="hv-sub">48 min · video</span></div>
+                    </div>
+                    <div class="hv-lesson is-doc">
+                        <span class="hv-ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </span>
+                        <div><b>Notes — Unit &amp; Measurement</b><span class="hv-sub">PDF · 14 pages</span></div>
+                    </div>
+                </div>
+                <div class="hv-cta-row">
+                    <span class="hv-btn hv-btn-primary">Open My Dashboard</span>
+                    <span class="hv-btn hv-btn-ghost">Browse Months</span>
+                </div>
+            </div>
+            <div class="hv-float hv-f2">
+                <span class="hv-float-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </span>
+                <div><b>Top in Physics</b><span>Exam-ready method</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic tags -->
+    <div class="topic-strip marketing-content" data-reveal>
+        <div class="topic-tags">
+            <span class="topic-tag">Mechanics</span>
+            <span class="topic-tag">Waves &amp; Oscillations</span>
+            <span class="topic-tag">Thermodynamics</span>
+            <span class="topic-tag">Electromagnetism</span>
+            <span class="topic-tag">Modern Physics</span>
+            <span class="topic-tag">A/L Past Papers</span>
+        </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="how-it-works marketing-content">
+        <div class="section-head" data-reveal>
+            <span class="eyebrow">Simple by Design</span>
+            <h2>How ClearPHYSICS works</h2>
+            <p>From first sign-in to your first class in three simple steps.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card" data-reveal>
+                <span class="step-num">01</span>
+                <h3>Secure Email Login</h3>
+                <p>Create your account with your email and a password. We verify your email once with a quick code, then you're in.</p>
+            </div>
+            <div class="step-card" data-reveal>
+                <span class="step-num">02</span>
+                <h3>Pick your batch &amp; month</h3>
+                <p>Choose your A/L batch, then unlock each month of classes as it runs.</p>
+            </div>
+            <div class="step-card" data-reveal>
+                <span class="step-num">03</span>
+                <h3>Unlock &amp; start learning</h3>
+                <p>Upload a payment slip to unlock the month, then access live classes, recordings, and notes from your dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Mode: pick a batch to sign in for -->
+    <section class="course-mode-section" id="course-mode-section" style="display:none;">
+        <div class="academics-header">
+            <h2>Choose Your A/L Batch</h2>
+            <p>Select your batch to log in and access papers, notes, and recordings.</p>
+        </div>
+        <div class="course-tiles-grid" id="course-tiles-grid">
+            <div class="course-select-tile" data-batch="2027">
+                <div class="tile-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <h3>2027 Papers</h3>
+                <p>For students sitting the 2027 A/L examination.</p>
+                <span class="tile-cta">Sign in to access →</span>
+            </div>
+            <div class="course-select-tile" data-batch="2028">
+                <div class="tile-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <h3>2028 Papers</h3>
+                <p>For students sitting the 2028 A/L examination.</p>
+                <span class="tile-cta">Sign in to access →</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login / Booking Modal -->
+    <div class="modal-overlay" id="booking-modal">
+        <div class="modal-box">
+            <button class="modal-close" id="modal-close-btn" title="Close">&times;</button>
+
+            <div id="modal-pre-login">
+                <div class="modal-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h2 id="auth-title">Student Login</h2>
+                <p id="auth-sub">Log in with your email and password, or create a new account.</p>
+
+                <div id="auth-main">
+                    <div class="auth-tabs"><button type="button" id="auth-tab-login" class="active">Log in</button><button type="button" id="auth-tab-register">Create account</button></div>
+                    <form id="auth-form" class="reg-form" novalidate>
+                        <label for="auth-email">Email</label>
+                        <input type="email" id="auth-email" autocomplete="email" required>
+                        <label for="auth-password">Password</label>
+                        <input type="password" id="auth-password" autocomplete="current-password" minlength="8" required>
+                        <div id="auth-confirm-wrap" style="display:none; flex-direction:column;">
+                            <label for="auth-password2">Confirm password</label>
+                            <input type="password" id="auth-password2" autocomplete="new-password">
+                        </div>
+                        <button type="submit" class="btn" id="auth-submit-btn" style="width:100%; margin-top:10px;">Log in</button>
+                        <a href="#" class="auth-link" id="auth-forgot-link">Forgot password?</a>
+                    </form>
+                </div>
+
+                <div id="auth-code" style="display:none;">
+                    <form id="auth-code-form" class="reg-form" novalidate>
+                        <label for="auth-code-input">6-digit code</label>
+                        <input type="text" id="auth-code-input" class="auth-code-input" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+                        <div id="auth-newpw-wrap" style="display:none; flex-direction:column;">
+                            <label for="auth-newpw">New password</label>
+                            <input type="password" id="auth-newpw" autocomplete="new-password" minlength="8">
+                        </div>
+                        <button type="submit" class="btn" id="auth-code-btn" style="width:100%; margin-top:10px;">Verify</button>
+                        <div class="auth-row"><a href="#" class="auth-link" id="auth-resend-link">Resend code</a><a href="#" class="auth-link" id="auth-back-link">Back</a></div>
+                    </form>
+                </div>
+
+                <div class="modal-status" id="modal-status"></div>
+            </div>
+
+
+            <div id="modal-post-login" style="display:none;">
+                <h2 id="modal-post-login-title">Complete Your Profile</h2>
+                <div class="modal-user" id="modal-user">
+                    <img id="modal-user-avatar" src="" alt="" style="display:none">
+                    <div>
+                        <div class="name" id="modal-user-name"></div>
+                        <div class="email" id="modal-user-email"></div>
+                    </div>
+                </div>
+                <p>Just a few details so we can set up your batch access.</p>
+
+                <form id="registration-form" class="reg-form">
+                    <label for="reg-fullname">Full Name</label>
+                    <input type="text" id="reg-fullname" required placeholder="As per school records">
+
+                    <label for="reg-whatsapp">WhatsApp Number</label>
+                    <input type="tel" id="reg-whatsapp" required placeholder="0771234567 or +94771234567" inputmode="tel" maxlength="12">
+
+                    <label for="reg-contact">Contact Number (if different)</label>
+                    <input type="tel" id="reg-contact" placeholder="Optional" inputmode="tel" maxlength="12">
+
+                    <label for="reg-parent-name">Parent / Guardian Name</label>
+                    <input type="text" id="reg-parent-name" required>
+
+                    <label for="reg-parent-contact">Parent / Guardian Contact Number</label>
+                    <input type="tel" id="reg-parent-contact" required placeholder="0771234567 or +94771234567" inputmode="tel" maxlength="12">
+
+                    <label for="reg-school">School</label>
+                    <input type="text" id="reg-school" required>
+
+                    <label for="reg-stream">A/L Stream</label>
+                    <select id="reg-stream" required>
+                        <option value="" disabled selected>Select your stream</option>
+                        <option value="Physical Science (Maths)">Physical Science (Combined Maths)</option>
+                        <option value="Biological Science">Biological Science</option>
+                        <option value="Engineering Technology">Engineering Technology</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="reg-batch">A/L Batch</label>
+                    <select id="reg-batch" required>
+                        <option value="" disabled selected>Select your batch</option>
+                        <option value="2027">2027 A/L Batch</option>
+                        <option value="2028">2028 A/L Batch</option>
+                    </select>
+
+                    <button type="submit" class="btn" id="reg-submit-btn" style="width:100%; margin-top:10px;">Save &amp; Unlock My Batch</button>
+                    <button type="button" class="btn btn-danger" id="reg-clear-all-btn" style="width:100%; margin-top:10px; display:none;">Clear All My Data</button>
+                    <div class="modal-status" id="reg-status"></div>
+                </form>
+            </div>
+
+            <div id="modal-done" style="display:none;">
+                <div class="modal-icon success" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h2>You're All Set</h2>
+                <p id="modal-done-text">Your profile is saved. Head to your batch dashboard to access notes and recordings.</p>
+                <a href="#academics-section" class="btn" id="proceed-academics-btn" style="width:100%; text-align:center;">Go to My Academics</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Modal (video) -->
+    <div class="modal-overlay" id="about-modal">
+        <div class="modal-box modal-box-video">
+            <button class="modal-close" id="about-modal-close-btn" title="Close">&times;</button>
+            <h2>About Us</h2>
+            <div class="video-embed-wrap">
+                <iframe id="about-video-iframe" src="" allow="autoplay; fullscreen" allowfullscreen title="About ClearPHYSICS"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student LMS Dashboard (hidden until registered) -->
+    <section class="academics-section" id="academics-section" style="display:none;">
+
+        <div class="lms-shell">
+
+            <!-- Sidebar -->
+            <aside class="lms-sidebar">
+                <div class="lms-profile">
+                    <img id="sidebar-avatar" src="" alt="" style="display:none">
+                    <div class="lms-profile-meta">
+                        <div class="lms-profile-name" id="sidebar-name">Student</div>
+                        <div class="lms-profile-batch" id="sidebar-batch">—</div>
+                    </div>
+                </div>
+                <nav class="lms-nav" aria-label="Student dashboard">
+                    <a href="#" class="lms-nav-item active" data-lms-nav="dashboard">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="#" class="lms-nav-item" data-lms-nav="months">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        My Months
+                    </a>
+                    <a href="#" class="lms-nav-item" data-lms-nav="edit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
+                        Edit Details
+                    </a>
+                    <a href="#" class="lms-nav-item" data-lms-nav="contact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        Contact
+                    </a>
+                    <a href="#" class="lms-nav-item danger" data-lms-nav="signout">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Sign Out
+                    </a>
+                </nav>
+                <div class="lms-sidebar-foot">ClearPHYSICS LMS</div>
+            </aside>
+
+            <!-- Main content -->
+            <div class="lms-main">
+
+                <!-- Dashboard overview -->
+                <div class="lms-dashboard" id="lms-dashboard">
+                    <div class="lms-welcome">
+                        <div>
+                            <span class="eyebrow">Student Dashboard</span>
+                            <h2 id="lms-welcome-title">Welcome back</h2>
+                            <p id="lms-welcome-sub">Here's what's happening in your batch.</p>
+                            <div class="student-status" id="student-status" style="display:none;"></div>
+                        </div>
+                        <button type="button" class="btn btn-ghost" data-lms-nav="months">
+                            Browse Months
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="lms-stats">
+                        <div class="lms-stat-card">
+                            <span class="lms-stat-value" id="stat-months">—</span>
+                            <span class="lms-stat-label">Months in Batch</span>
+                        </div>
+                        <div class="lms-stat-card">
+                            <span class="lms-stat-value" id="stat-batch">—</span>
+                            <span class="lms-stat-label">Your Batch</span>
+                        </div>
+                        <div class="lms-stat-card">
+                            <span class="lms-stat-value" id="stat-stream">—</span>
+                            <span class="lms-stat-label">A/L Stream</span>
+                        </div>
+                    </div>
+
+                    <div class="lms-quick">
+                        <a href="#" class="lms-quick-card" data-lms-nav="months">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            <div><div class="lms-quick-title">Browse Months</div><div class="lms-quick-sub">See monthly content &amp; prices</div></div>
+                        </a>
+                        <a href="#" class="lms-quick-card" data-lms-nav="edit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <div><div class="lms-quick-title">Update Profile</div><div class="lms-quick-sub">Keep your details up to date</div></div>
+                        </a>
+                        <a href="#" class="lms-quick-card" data-lms-nav="contact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <div><div class="lms-quick-title">Get Support</div><div class="lms-quick-sub">Call, WhatsApp, Telegram or email</div></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Months view -->
+                <div class="lms-months-view" id="lms-months-view" style="display:none;">
+                    <div class="academics-header">
+                        <h2 id="academics-batch-title">My Batch</h2>
+                        <p>Notes and class recordings for your A/L batch, added as classes progress.</p>
+                    </div>
+                    <div class="academics-grid" id="months-grid"></div>
+                </div>
+
+                <!-- Content view for a selected month -->
+                <div id="month-content-view" style="display:none;">
+                    <button type="button" class="back-link" id="back-to-months-btn">&larr; Back to months</button>
+                    <h3 id="month-content-title" class="month-content-title"></h3>
+
+                    <!-- Locked state: payment slip upload -->
+                    <div id="month-locked-panel" style="display:none;">
+                        <div class="locked-card">
+                            <div class="locked-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <p id="locked-status-text">This month isn't unlocked yet. Upload your payment slip below and your teacher will review it — once accepted, you'll have permanent access.</p>
+                            <form id="slip-upload-form" class="slip-form">
+                                <label for="slip-file-input">Payment Slip (image or PDF)</label>
+                                <input type="file" id="slip-file-input" accept="image/*,.pdf" required>
+                                <button type="submit" class="btn" id="slip-submit-btn" style="width:100%; margin-top:14px;">Upload Payment Slip</button>
+                                <div class="modal-status" id="slip-status"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Unlocked state: content cards -->
+                    <div id="month-content-panels" style="display:none;">
+                        <div class="academics-subhead"><h3>Live Classes</h3></div>
+                        <div class="academics-grid content-grid" id="live-grid"></div>
+
+                        <div class="academics-subhead"><h3>Class Recordings</h3></div>
+                        <div class="academics-grid content-grid" id="recordings-grid"></div>
+
+                        <div class="academics-subhead"><h3>Notes &amp; PDFs</h3></div>
+                        <div class="academics-grid content-grid" id="notes-grid"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Clear All Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-clear-modal">
+        <div class="modal-box modal-box-small">
+            <h2>Clear All Your Data?</h2>
+            <p>This permanently deletes your registration details from this site and from the class records sheet. You'll need to sign in and register again from scratch to get batch access.</p>
+            <div class="confirm-actions">
+                <button type="button" class="btn btn-secondary" id="confirm-clear-cancel-btn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-clear-yes-btn">Yes, Clear Everything</button>
+            </div>
+            <div class="modal-status" id="confirm-clear-status"></div>
+        </div>
+    </div>
+
+    <!-- Contact Mode -->
+    <section class="academics-section" id="contact-section" style="display:none;">
+        <div class="academics-header">
+            <h2>Get in Touch</h2>
+            <p>Reach out directly — pick whichever way works best for you.</p>
+        </div>
+        <div class="contact-grid">
+            <a class="contact-card" href="tel:+94727262238">
+                <div class="contact-icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                </div>
+                <div class="contact-title">Call</div>
+                <div class="contact-value">072 726 2238</div>
+                <span class="contact-action">Tap to Call</span>
+            </a>
+
+            <a class="contact-card contact-whatsapp" href="https://wa.me/94727262238" target="_blank" rel="noopener">
+                <div class="contact-icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                    </svg>
+                </div>
+                <div class="contact-title">WhatsApp</div>
+                <div class="contact-value">072 726 2238</div>
+                <span class="contact-action">Chat on WhatsApp</span>
+            </a>
+
+            <a class="contact-card contact-telegram" href="https://t.me/harshilamalith" target="_blank" rel="noopener">
+                <div class="contact-icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </div>
+                <div class="contact-title">Telegram</div>
+                <div class="contact-value">Harshila Malith</div>
+                <span class="contact-action">Message on Telegram</span>
+            </a>
+
+            <a class="contact-card" href="mailto:harshilapathirana@gmail.com">
+                <div class="contact-icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="M22 6l-10 7L2 6"/>
+                    </svg>
+                </div>
+                <div class="contact-title">Email</div>
+                <div class="contact-value">harshilapathirana@gmail.com</div>
+                <span class="contact-action">Send an Email</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Courses Mode: choose a batch to sign in for -->
+    <section class="academics-section" id="courses-section" style="display:none;">
+        <div class="academics-header">
+            <h2>Choose Your Batch</h2>
+            <p>Select your A/L batch to sign in and access papers, notes, and recordings.</p>
+        </div>
+        <div class="tiles-container courses-tiles" id="courses-tiles-grid">
+            <div class="glass-tile course-tile" data-batch="2027">
+                <div class="tile-content">
+                    <div class="tile-tag">A/L Batch</div>
+                    <h3>2027 Papers</h3>
+                    <p>Sign in to access notes, past papers, and class recordings for the 2027 A/L batch.</p>
+                    <span class="tile-link">Sign in to access →</span>
+                </div>
+            </div>
+            <div class="glass-tile course-tile" data-batch="2028">
+                <div class="tile-content">
+                    <div class="tile-tag">A/L Batch</div>
+                    <h3>2028 Papers</h3>
+                    <p>Sign in to access notes, past papers, and class recordings for the 2028 A/L batch.</p>
+                    <span class="tile-link">Sign in to access →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketing tiles -->
+    <div class="marketing-content">
+        <div class="section-head" data-reveal>
+            <span class="eyebrow">The ClearPHYSICS Method</span>
+            <h2>Physics, made genuinely simple</h2>
+            <p>From first principles to exam-day confidence — a clear, structured path from mechanics to modern physics.</p>
+        </div>
+
+        <section class="tiles-container">
+            <div class="glass-tile" data-reveal>
+                <div class="tile-image">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop" alt="Physics Formulas and Chalkboard" loading="lazy">
+                </div>
+                <div class="tile-content">
+                    <div class="tile-tag">Foundation</div>
+                    <h3>Core Concepts</h3>
+                    <p>Build a rock-solid foundation in mechanics, thermodynamics, and electromagnetism. We break down difficult equations into logical, easy-to-follow steps.</p>
+                    <span class="tile-link">Explore the syllabus →</span>
+                </div>
+            </div>
+
+            <div class="glass-tile" data-reveal>
+                <div class="tile-image">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=600&auto=format&fit=crop" alt="Science Experiment Equipment" loading="lazy">
+                </div>
+                <div class="tile-content">
+                    <div class="tile-tag">Exams</div>
+                    <h3>Exam Preparation</h3>
+                    <p>Targeted preparation for GCSE, A-Levels, and AP Physics. Practice with past papers and learn exam techniques to maximize your grades.</p>
+                    <span class="tile-link">See past papers →</span>
+                </div>
+            </div>
+
+            <div class="glass-tile" data-reveal>
+                <div class="tile-image">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=600&auto=format&fit=crop" alt="Student Studying" loading="lazy">
+                </div>
+                <div class="tile-content">
+                    <div class="tile-tag">Mentoring</div>
+                    <h3>1-on-1 Mentoring</h3>
+                    <p>Personalized tutoring tailored to your learning style. Whether you struggle with math skills or want to master astrophysics, we've got you covered.</p>
+                    <span class="tile-link">Book a session →</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand" data-reveal>
+                <div class="logo">
+                    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="4" fill="url(#logo-g)"/>
+                        <ellipse cx="16" cy="16" rx="13" ry="6" fill="none" stroke="url(#logo-g)" stroke-width="2" transform="rotate(30 16 16)"/>
+                        <ellipse cx="16" cy="16" rx="13" ry="6" fill="none" stroke="url(#logo-g)" stroke-width="2" transform="rotate(90 16 16)"/>
+                    </svg>
+                    <span>Clear<span>PHYSICS</span></span>
+                </div>
+                <p>Professional A/L Physics tuition that turns complex concepts into clear, confident understanding.</p>
+            </div>
+
+            <div class="footer-col" data-reveal>
+                <h4>Explore</h4>
+                <a href="#" data-nav="home">Home</a>
+                <a href="#" data-nav="courses">Courses</a>
+                <a href="#" data-nav="about">About Us</a>
+                <a href="#" data-nav="contact">Contact Us</a>
+            </div>
+
+            <div class="footer-col" data-reveal>
+                <h4>Get in Touch</h4>
+                <a href="tel:+94727262238">072 726 2238</a>
+                <a href="https://wa.me/94727262238" target="_blank" rel="noopener">WhatsApp</a>
+                <a href="https://t.me/harshilamalith" target="_blank" rel="noopener">Telegram</a>
+                <a href="mailto:harshilapathirana@gmail.com">harshilapathirana@gmail.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="year">2026</span> ClearPHYSICS · PHM Pathirana. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="modal-auth.js"></script>
+</body>
+</html>
