@@ -521,6 +521,7 @@ navSignoutLink.addEventListener('click', (e) => {
     academicsSection.style.display = 'none';
     setLoginButtonText('Log In Now');
     currentProfile = null;
+    callApi('authLogout', { sessionToken: Session.token() }).catch(() => {});
     Session.clear();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
